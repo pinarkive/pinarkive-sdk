@@ -1,0 +1,23 @@
+{
+  "name": "pinarkive/pinarkive-sdk",
+  "version": "1.0.0",
+  "description": "PHP SDK for the Pinarkive API",
+  "type": "library",
+  "require": {
+    "guzzlehttp/guzzle": "^7.8"
+  },
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "ITCS VIP"
+    }
+  ],
+  "autoload": {
+    "psr-4": {
+      "Pinarkive\\": ""
+    }
+  },
+  "minimum-stability": "stable",
+  "homepage": "https://github.com/pinarkive/pinarkive-sdk",
+  "keywords": ["pinarkive", "api", "sdk", "php"]
+}

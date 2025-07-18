@@ -1,0 +1,26 @@
+{
+  "name": "@pinarkive/pinarkive-sdk-typescript",
+  "version": "1.0.0",
+  "description": "TypeScript SDK for the Pinarkive API",
+  "main": "index.js",
+  "types": "index.d.ts",
+  "scripts": {
+    "build": "tsc"
+  },
+  "dependencies": {
+    "axios": "^1.7.2"
+  },
+  "devDependencies": {
+    "typescript": "^5.5.4"
+  },
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/pinarkive/pinarkive-sdk.git"
+  },
+  "keywords": ["pinarkive", "api", "sdk", "typescript"],
+  "author": "ITCS VIP",
+  "publishConfig": {
+    "access": "public"
+  }
+}
