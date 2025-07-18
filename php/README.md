@@ -1,33 +1,33 @@
 # Pinarkive PHP SDK
 
-Cliente PHP para la API de Pinarkive.
+PHP client for the Pinarkive API.
 
-## Instalación
+## Installation
 
-Instala Guzzle:
+Install Guzzle:
 
 ```
 composer require guzzlehttp/guzzle
 ```
 
-Copia `PinarkiveClient.php` a tu proyecto.
+Copy `PinarkiveClient.php` to your project.
 
-## Uso
+## Usage
 
 ```php
 require 'PinarkiveClient.php';
-$client = new PinarkiveClient(null, 'TU_API_KEY');
+$client = new PinarkiveClient(null, 'YOUR_API_KEY');
 
-// Subir un archivo
+// Upload a file
 $client->uploadFile('document.pdf');
 
-// Listar archivos
+// List files
 $client->listUploads();
 ```
 
-## Autenticación
-- JWT: primer parámetro del constructor
-- API Key: segundo parámetro del constructor
+## Authentication
+- JWT: first parameter of the constructor
+- API Key: second parameter of the constructor
 
-## Documentación
-Consulta [https://api.pinarkive.com/docs](https://api.pinarkive.com/docs) 
+## Documentation
+See [https://api.pinarkive.com/docs](https://api.pinarkive.com/docs) 

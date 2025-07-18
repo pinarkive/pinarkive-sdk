@@ -1,15 +1,17 @@
-const axios = require('axios');
+const { default: axios, AxiosHeaders } = require('axios');
 
 class PinarkiveClient {
   constructor({ token, apiKey }, baseURL = 'https://api.pinarkive.com') {
     this.auth = { token, apiKey };
     this.axios = axios.create({ baseURL });
     this.axios.interceptors.request.use((config) => {
+      const headers = new AxiosHeaders(config.headers);
       if (this.auth.token) {
-        config.headers = { ...config.headers, Authorization: `Bearer ${this.auth.token}` };
+        headers.set('Authorization', `Bearer ${this.auth.token}`);
       } else if (this.auth.apiKey) {
-        config.headers = { ...config.headers, 'X-API-Key': this.auth.apiKey };
+        headers.set('X-API-Key', this.auth.apiKey);
       }
+      config.headers = headers;
       return config;
     });
   }
@@ -78,4 +80,4 @@ class PinarkiveClient {
   }
 }
 
-module.exports = PinarkiveClient; 
+module.exports = PinarkiveClient;

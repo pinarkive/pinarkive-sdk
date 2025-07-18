@@ -1,33 +1,33 @@
 # Pinarkive TypeScript SDK
 
-Cliente TypeScript para la API de Pinarkive.
+TypeScript client for the Pinarkive API.
 
-## Instalación
+## Installation
 
 ```
 npm install axios
 ```
 
-Copia `index.ts` a tu proyecto o instala desde tu repositorio si lo publicas.
+Copy `index.ts` to your project or install from your repository if you publish it.
 
-## Uso
+## Usage
 
 ```typescript
 import { PinarkiveClient } from './index';
 
-const client = new PinarkiveClient({ token: 'TU_TOKEN' });
+const client = new PinarkiveClient({ token: 'YOUR_TOKEN' });
 
-// Subir un archivo
-const file = new File([/* datos */], 'document.pdf');
+// Upload a file
+const file = new File([/* data */], 'document.pdf');
 client.uploadFile(file).then(console.log);
 
-// Listar archivos
+// List files
 client.listUploads().then(console.log);
 ```
 
-## Autenticación
+## Authentication
 - JWT: `{ token: '...' }`
 - API Key: `{ apiKey: '...' }`
 
-## Documentación
-Consulta [https://api.pinarkive.com/docs](https://api.pinarkive.com/docs) 
+## Documentation
+See [https://api.pinarkive.com/docs](https://api.pinarkive.com/docs) 

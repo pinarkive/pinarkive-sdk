@@ -1,14 +1,14 @@
 # Pinarkive Go SDK
 
-Cliente Go para la API de Pinarkive.
+Go client for the Pinarkive API.
 
-## Instalación
+## Installation
 
-Copia `pinarkive_client.go` a tu proyecto.
+Copy `pinarkive_client.go` to your project.
 
-Requiere Go 1.16+.
+Requires Go 1.16+.
 
-## Uso
+## Usage
 
 ```go
 package main
@@ -19,7 +19,7 @@ import (
 )
 
 func main() {
-	client := pinarkive.NewPinarkiveClient("", "TU_API_KEY", "")
+	client := pinarkive.NewPinarkiveClient("", "YOUR_API_KEY", "")
 	resp, err := client.ListUploads(1, 10)
 	if err != nil {
 		panic(err)
@@ -28,9 +28,9 @@ func main() {
 }
 ```
 
-## Autenticación
-- JWT: primer parámetro de NewPinarkiveClient
-- API Key: segundo parámetro de NewPinarkiveClient
+## Authentication
+- JWT: first parameter of NewPinarkiveClient
+- API Key: second parameter of NewPinarkiveClient
 
-## Documentación
-Consulta [https://api.pinarkive.com/docs](https://api.pinarkive.com/docs) 
+## Documentation
+See [https://api.pinarkive.com/docs](https://api.pinarkive.com/docs) 

@@ -1,33 +1,33 @@
 # Pinarkive JavaScript SDK
 
-Cliente JavaScript para la API de Pinarkive.
+JavaScript client for the Pinarkive API.
 
-## Instalación
+## Installation
 
 ```
 npm install axios
 ```
 
-Copia `index.js` a tu proyecto o instala desde tu repositorio si lo publicas.
+Copy `index.js` to your project or install from your repository if you publish it.
 
-## Uso
+## Usage
 
 ```js
 const PinarkiveClient = require('./index');
-const client = new PinarkiveClient({ apiKey: 'TU_API_KEY' });
+const client = new PinarkiveClient({ apiKey: 'YOUR_API_KEY' });
 
-// Subir un archivo (en Node.js usa fs.createReadStream)
+// Upload a file (in Node.js use fs.createReadStream)
 const fs = require('fs');
 const file = fs.createReadStream('document.pdf');
 client.uploadFile(file).then(console.log);
 
-// Listar archivos
+// List files
 client.listUploads().then(console.log);
 ```
 
-## Autenticación
+## Authentication
 - JWT: `{ token: '...' }`
 - API Key: `{ apiKey: '...' }`
 
-## Documentación
-Consulta [https://api.pinarkive.com/docs](https://api.pinarkive.com/docs) 
+## Documentation
+See [https://api.pinarkive.com/docs](https://api.pinarkive.com/docs) 

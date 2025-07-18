@@ -1,4 +1,4 @@
-import axios, { AxiosInstance, AxiosRequestConfig } from 'axios';
+import axios, { AxiosInstance, AxiosRequestConfig, AxiosHeaders } from 'axios';
 
 export type AuthType = { token?: string; apiKey?: string };
 
@@ -10,11 +10,13 @@ export class PinarkiveClient {
     this.auth = auth;
     this.axios = axios.create({ baseURL });
     this.axios.interceptors.request.use((config) => {
+      const headers = new AxiosHeaders(config.headers);
       if (this.auth.token) {
-        config.headers = { ...config.headers, Authorization: `Bearer ${this.auth.token}` };
+        headers.set('Authorization', `Bearer ${this.auth.token}`);
       } else if (this.auth.apiKey) {
-        config.headers = { ...config.headers, 'X-API-Key': this.auth.apiKey };
+        headers.set('X-API-Key', this.auth.apiKey);
       }
+      config.headers = headers;
       return config;
     });
   }
@@ -81,4 +83,4 @@ export class PinarkiveClient {
   async getAllocations(cid: string) {
     return this.axios.get(`/status/allocations/${cid}`);
   }
-} 
+}
