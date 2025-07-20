@@ -7,7 +7,7 @@ class PinarkiveClient {
     private $token;
     private $apiKey;
 
-    public function __construct($token = null, $apiKey = null, $baseUrl = 'https://api.pinarkive.com') {
+    public function __construct($token = null, $apiKey = null, $baseUrl = 'https://api.pinarkive.com/api/v2') {
         $this->token = $token;
         $this->apiKey = $apiKey;
         $this->client = new Client(['base_uri' => $baseUrl]);
@@ -29,15 +29,21 @@ class PinarkiveClient {
             'json' => ['email' => $email, 'password' => $password]
         ]);
     }
+
     public function signup($data, $locale = null, $refCode = null) {
         $params = [];
-        if ($locale) $params['locale'] = $locale;
-        if ($refCode) $params['refCode'] = $refCode;
+        if ($locale) {
+            $params['locale'] = $locale;
+        }
+        if ($refCode) {
+            $params['refCode'] = $refCode;
+        }
         return $this->client->post('/auth/signup', [
             'json' => $data,
             'query' => $params
         ]);
     }
+
     public function logout() {
         return $this->client->post('/auth/logout', [
             'headers' => $this->headers()
@@ -46,7 +52,7 @@ class PinarkiveClient {
 
     // --- File Management ---
     public function uploadFile($filePath) {
-        return $this->client->post('/file', [
+        return $this->client->post('/files', [
             'headers' => $this->headers(),
             'multipart' => [
                 [
@@ -56,68 +62,76 @@ class PinarkiveClient {
             ]
         ]);
     }
+
     public function uploadDirectory($dirPath) {
-        return $this->client->post('/file/directory', [
+        return $this->client->post('/files/directory', [
             'headers' => $this->headers(),
             'json' => ['dirPath' => $dirPath]
         ]);
     }
+
     public function pinCid($cid) {
-        return $this->client->post("/file/pin/{$cid}", [
+        return $this->client->post("/files/pin/{$cid}", [
             'headers' => $this->headers()
         ]);
     }
+
     public function removeFile($cid) {
-        return $this->client->delete("/file/remove/{$cid}", [
+        return $this->client->delete("/files/remove/{$cid}", [
             'headers' => $this->headers()
         ]);
     }
 
     // --- User Profile ---
     public function getProfile() {
-        return $this->client->get('/me', [
+        return $this->client->get('/users/me', [
             'headers' => $this->headers()
         ]);
     }
+
     public function updateProfile($data) {
-        return $this->client->put('/me', [
+        return $this->client->put('/users/me', [
             'headers' => $this->headers(),
             'json' => $data
         ]);
     }
+
     public function listUploads($page = 1, $limit = 10) {
-        return $this->client->get('/me/uploads', [
+        return $this->client->get('/users/me/uploads', [
             'headers' => $this->headers(),
             'query' => ['page' => $page, 'limit' => $limit]
         ]);
     }
+
     public function deleteUpload($cid) {
-        return $this->client->delete("/me/uploads/{$cid}", [
+        return $this->client->delete("/users/me/uploads/{$cid}", [
             'headers' => $this->headers()
         ]);
     }
+
     public function getReferrals() {
-        return $this->client->get('/me/referrals', [
+        return $this->client->get('/users/me/referrals', [
             'headers' => $this->headers()
         ]);
     }
 
     // --- Token Management ---
-    public function generateToken($label, $name, $expiresInDays = null) {
-        $data = ['label' => $label, 'name' => $name];
-        if ($expiresInDays) $data['expiresInDays'] = $expiresInDays;
-        return $this->client->post('/api/tokens/generate', [
+    public function generateToken($name, array $permissions) {
+        $data = ['name' => $name, 'permissions' => $permissions];
+        return $this->client->post('/tokens/generate', [
             'headers' => $this->headers(),
             'json' => $data
         ]);
     }
+
     public function listTokens() {
-        return $this->client->get('/api/tokens/list', [
+        return $this->client->get('/tokens/list', [
             'headers' => $this->headers()
         ]);
     }
+
     public function revokeToken($name) {
-        return $this->client->delete("/api/tokens/revoke/{$name}", [
+        return $this->client->delete("/tokens/revoke/{$name}", [
             'headers' => $this->headers()
         ]);
     }
@@ -128,9 +142,10 @@ class PinarkiveClient {
             'headers' => $this->headers()
         ]);
     }
+
     public function getAllocations($cid) {
         return $this->client->get("/status/allocations/{$cid}", [
             'headers' => $this->headers()
         ]);
     }
-} 
+}

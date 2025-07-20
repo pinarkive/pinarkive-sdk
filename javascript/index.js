@@ -1,7 +1,7 @@
 const { default: axios, AxiosHeaders } = require('axios');
 
 class PinarkiveClient {
-  constructor({ token, apiKey }, baseURL = 'https://api.pinarkive.com') {
+  constructor({ token, apiKey }, baseURL = 'https://api.pinarkive.com/api/v2') {
     this.auth = { token, apiKey };
     this.axios = axios.create({ baseURL });
     this.axios.interceptors.request.use((config) => {
@@ -31,44 +31,44 @@ class PinarkiveClient {
   uploadFile(file) {
     const form = new FormData();
     form.append('file', file);
-    return this.axios.post('/file', form);
+    return this.axios.post('/files', form);
   }
   uploadDirectory(dirPath) {
-    return this.axios.post('/file/directory', { dirPath });
+    return this.axios.post('/files/directory', { dirPath });
   }
   pinCid(cid) {
-    return this.axios.post(`/file/pin/${cid}`);
+    return this.axios.post(`/files/pin/${cid}`);
   }
   removeFile(cid) {
-    return this.axios.delete(`/file/remove/${cid}`);
+    return this.axios.delete(`/files/remove/${cid}`);
   }
 
   // --- User Profile ---
   getProfile() {
-    return this.axios.get('/me');
+    return this.axios.get('/users/me');
   }
   updateProfile(data) {
-    return this.axios.put('/me', data);
+    return this.axios.put('/users/me', data);
   }
   listUploads(page = 1, limit = 10) {
-    return this.axios.get('/me/uploads', { params: { page, limit } });
+    return this.axios.get('/users/me/uploads', { params: { page, limit } });
   }
   deleteUpload(cid) {
-    return this.axios.delete(`/me/uploads/${cid}`);
+    return this.axios.delete(`/users/me/uploads/${cid}`);
   }
   getReferrals() {
-    return this.axios.get('/me/referrals');
+    return this.axios.get('/users/me/referrals');
   }
 
   // --- Token Management ---
-  generateToken(label, name, expiresInDays) {
-    return this.axios.post('/api/tokens/generate', { label, name, expiresInDays });
+  generateToken(name, permissions) {
+    return this.axios.post('/tokens/generate', { name, permissions });
   }
   listTokens() {
-    return this.axios.get('/api/tokens/list');
+    return this.axios.get('/tokens/list');
   }
   revokeToken(name) {
-    return this.axios.delete(`/api/tokens/revoke/${name}`);
+    return this.axios.delete(`/tokens/revoke/${name}`);
   }
 
   // --- Status and Monitoring ---

@@ -19,7 +19,7 @@ type PinarkiveClient struct {
 
 func NewPinarkiveClient(token, apiKey, baseURL string) *PinarkiveClient {
 	if baseURL == "" {
-		baseURL = "https://api.pinarkive.com"
+		baseURL = "https://api.pinarkive.com/api/v2"
 	}
 	return &PinarkiveClient{
 		BaseURL: baseURL,
@@ -83,7 +83,7 @@ func (c *PinarkiveClient) UploadFile(filePath string) (*http.Response, error) {
 		return nil, err
 	}
 	w.Close()
-	url := c.BaseURL + "/file"
+	url := c.BaseURL + "/files"
 	req, err := http.NewRequest("POST", url, &b)
 	if err != nil {
 		return nil, err
@@ -95,15 +95,15 @@ func (c *PinarkiveClient) UploadFile(filePath string) (*http.Response, error) {
 
 func (c *PinarkiveClient) UploadDirectory(dirPath string) (*http.Response, error) {
 	data := map[string]string{"dirPath": dirPath}
-	return c.postJson("/file/directory", data, c.headers())
+	return c.postJson("/files/directory", data, c.headers())
 }
 
 func (c *PinarkiveClient) PinCid(cid string) (*http.Response, error) {
-	return c.postJson("/file/pin/"+cid, nil, c.headers())
+	return c.postJson("/files/pin/"+cid, nil, c.headers())
 }
 
 func (c *PinarkiveClient) RemoveFile(cid string) (*http.Response, error) {
-	url := c.BaseURL + "/file/remove/" + cid
+	url := c.BaseURL + "/files/remove/" + cid
 	req, err := http.NewRequest("DELETE", url, nil)
 	if err != nil {
 		return nil, err
@@ -114,25 +114,25 @@ func (c *PinarkiveClient) RemoveFile(cid string) (*http.Response, error) {
 
 // --- User Profile ---
 func (c *PinarkiveClient) GetProfile() (*http.Response, error) {
-	return c.get("/me", c.headers())
+	return c.get("/users/me", c.headers())
 }
 
 func (c *PinarkiveClient) UpdateProfile(data map[string]interface{}) (*http.Response, error) {
-	return c.putJson("/me", data, c.headers())
+	return c.putJson("/users/me", data, c.headers())
 }
 
 func (c *PinarkiveClient) ListUploads(page, limit int) (*http.Response, error) {
-	url := fmt.Sprintf("/me/uploads?page=%d&limit=%d", page, limit)
+	url := fmt.Sprintf("/users/me/uploads?page=%d&limit=%d", page, limit)
 	return c.get(url, c.headers())
 }
 
 func (c *PinarkiveClient) DeleteUpload(cid string) (*http.Response, error) {
-	url := "/me/uploads/" + cid
+	url := "/users/me/uploads/" + cid
 	return c.delete(url, c.headers())
 }
 
 func (c *PinarkiveClient) GetReferrals() (*http.Response, error) {
-	return c.get("/me/referrals", c.headers())
+	return c.get("/users/me/referrals", c.headers())
 }
 
 // --- Token Management ---
@@ -141,15 +141,15 @@ func (c *PinarkiveClient) GenerateToken(label, name string, expiresInDays int) (
 	if expiresInDays > 0 {
 		data["expiresInDays"] = expiresInDays
 	}
-	return c.postJson("/api/tokens/generate", data, c.headers())
+	return c.postJson("/tokens/generate", data, c.headers())
 }
 
 func (c *PinarkiveClient) ListTokens() (*http.Response, error) {
-	return c.get("/api/tokens/list", c.headers())
+	return c.get("/tokens/list", c.headers())
 }
 
 func (c *PinarkiveClient) RevokeToken(name string) (*http.Response, error) {
-	url := "/api/tokens/revoke/" + name
+	url := "/tokens/revoke/" + name
 	return c.delete(url, c.headers())
 }
 
@@ -213,4 +213,4 @@ func (c *PinarkiveClient) delete(path string, headers http.Header) (*http.Respon
 	}
 	req.Header = headers
 	return c.Client.Do(req)
-} 
+}

@@ -27,3 +27,6 @@ bin/
 .DS_Store
 *.log
 CONTRIBUTING.md
+MIGRATE.md
+api-v2.md
+legacy-api.md

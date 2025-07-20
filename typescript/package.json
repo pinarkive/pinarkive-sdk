@@ -1,7 +1,7 @@
 {
   "name": "@pinarkive/pinarkive-sdk-typescript",
-  "version": "1.0.0",
-  "description": "TypeScript SDK for the Pinarkive API",
+  "version": "2.0.0",
+  "description": "TypeScript SDK for the Pinarkive API v2.0. Deprecated v1.0.0 support.",
   "main": "index.js",
   "types": "index.d.ts",
   "scripts": {
@@ -18,7 +18,15 @@
     "type": "git",
     "url": "https://github.com/pinarkive/pinarkive-sdk.git"
   },
-  "keywords": ["pinarkive", "api", "sdk", "typescript"],
+  "keywords": [
+    "pinarkive",
+    "api",
+    "sdk",
+    "typescript",
+    "api-v2",
+    "v2.0",
+    "deprecated-v1"
+  ],
   "author": "ITCS VIP",
   "publishConfig": {
     "access": "public"

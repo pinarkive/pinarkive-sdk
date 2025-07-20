@@ -1,7 +1,7 @@
 {
   "name": "@pinarkive/pinarkive-sdk-js",
-  "version": "1.0.0",
-  "description": "JavaScript SDK for the Pinarkive API",
+  "version": "2.0.0",
+  "description": "JavaScript SDK for the Pinarkive API (API v2.0). v1.0.0 is deprecated.",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -14,7 +14,7 @@
     "type": "git",
     "url": "https://github.com/pinarkive/pinarkive-sdk.git"
   },
-  "keywords": ["pinarkive", "api", "sdk", "javascript"],
+  "keywords": ["pinarkive", "api", "sdk", "javascript", "v2", "v1-deprecated"],
   "author": "ITCS VIP",
   "publishConfig": {
     "access": "public"

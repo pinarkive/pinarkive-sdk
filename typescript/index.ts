@@ -6,7 +6,7 @@ export class PinarkiveClient {
   private axios: AxiosInstance;
   private auth: AuthType;
 
-  constructor(auth: AuthType, baseURL = 'https://api.pinarkive.com') {
+  constructor(auth: AuthType, baseURL = 'https://api.pinarkive.com/api/v2') {
     this.auth = auth;
     this.axios = axios.create({ baseURL });
     this.axios.interceptors.request.use((config) => {
@@ -36,44 +36,44 @@ export class PinarkiveClient {
   async uploadFile(file: File | Blob) {
     const form = new FormData();
     form.append('file', file);
-    return this.axios.post('/file', form);
+    return this.axios.post('/files', form);
   }
   async uploadDirectory(dirPath: string) {
-    return this.axios.post('/file/directory', { dirPath });
+    return this.axios.post('/files/directory', { dirPath });
   }
   async pinCid(cid: string) {
-    return this.axios.post(`/file/pin/${cid}`);
+    return this.axios.post(`/files/pin/${cid}`);
   }
   async removeFile(cid: string) {
-    return this.axios.delete(`/file/remove/${cid}`);
+    return this.axios.delete(`/files/remove/${cid}`);
   }
 
   // --- User Profile ---
   async getProfile() {
-    return this.axios.get('/me');
+    return this.axios.get('/users/me');
   }
   async updateProfile(data: any) {
-    return this.axios.put('/me', data);
+    return this.axios.put('/users/me', data);
   }
   async listUploads(page = 1, limit = 10) {
-    return this.axios.get('/me/uploads', { params: { page, limit } });
+    return this.axios.get('/users/me/uploads', { params: { page, limit } });
   }
   async deleteUpload(cid: string) {
-    return this.axios.delete(`/me/uploads/${cid}`);
+    return this.axios.delete(`/users/me/uploads/${cid}`);
   }
   async getReferrals() {
-    return this.axios.get('/me/referrals');
+    return this.axios.get('/users/me/referrals');
   }
 
   // --- Token Management ---
   async generateToken(label: string, name: string, expiresInDays?: number) {
-    return this.axios.post('/api/tokens/generate', { label, name, expiresInDays });
+    return this.axios.post('/tokens/generate', { label, name, expiresInDays });
   }
   async listTokens() {
-    return this.axios.get('/api/tokens/list');
+    return this.axios.get('/tokens/list');
   }
   async revokeToken(name: string) {
-    return this.axios.delete(`/api/tokens/revoke/${name}`);
+    return this.axios.delete(`/tokens/revoke/${name}`);
   }
 
   // --- Status and Monitoring ---
