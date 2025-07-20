@@ -1,24 +1,33 @@
 {
-    "name": "pinarkive/pinarkive-sdk",
-    "description": "SDK oficial para la API de Pinarkive",
-    "type": "library",
-    "license": "MIT",
-    "require": {
-        "php": "^7.4 || ^8.0",
-        "guzzlehttp/guzzle": "^7.0"
+  "name": "pinarkive/pinarkive-sdk",
+  "version": "2.0.0",
+  "description": "PHP SDK for the Pinarkive API (v2.0). Version 1.0.0 is deprecated and no longer maintained.",
+  "type": "library",
+  "require": {
+    "guzzlehttp/guzzle": "^7.8"
+  },
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "ITCS VIP"
     },
-    "autoload": {
-        "psr-4": {
-            "Pinarkive\\PinarkiveSdk\\": "php/"
-        }
-    },
-    "authors": [
-        {
-          "name": "ITCS VIP"
-        },
-        {
-          "name": "Joel_da"
-        }
-      ],
-    "minimum-stability": "stable"
+    {
+      "name": "Joel_da"
+    }
+  ],
+  "autoload": {
+    "psr-4": {
+      "Pinarkive\\": ""
+    }
+  },
+  "minimum-stability": "stable",
+  "homepage": "https://github.com/pinarkive/pinarkive-sdk",
+  "keywords": [
+    "pinarkive",
+    "api",
+    "sdk",
+    "php",
+    "api-v2",
+    "deprecated-v1.0"
+  ]
 }
